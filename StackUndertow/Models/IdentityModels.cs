@@ -20,6 +20,11 @@ namespace StackUndertow.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        DbSet<Question> Questions { get; set; }
+        DbSet<Answer> Answers { get; set; }
+        DbSet<Category> Categories { get; set; }
+        DbSet<Tag> Tags { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

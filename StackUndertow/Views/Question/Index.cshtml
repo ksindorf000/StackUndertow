@@ -10,7 +10,7 @@
     <div class="col-md-6">
         @foreach (var question in Model)
         {
-           <h1>@question.Title</h1>
+           <h1><a href="Detail/@question.Id">@question.Title</a></h1>
            <hr />
            <h3>@question.Owner.UserName asked: </h3>
            <p>@question.Body</p>           

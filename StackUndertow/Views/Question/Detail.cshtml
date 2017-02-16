@@ -13,24 +13,18 @@
         <p>@Model.Body</p>
     </div>
 </div>
-@*<div class="row">
+
+<div class="row">
     <div class="col-md-6">
-        <h3>Add an Answer:</h3>
+        <h3>Add Your Answer:</h3> <!--https://github.com/NicholasSaravia/StackUndertow-->
         @using (Html.BeginForm())
         {
-            @Html.AntiForgeryToken()
-
-            <div class="form-horizontal">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger"})
-
-                <!--AnswerBody-->
-                <div class="form-group">
-                    @Html.Partial()
-                </div>
-            </div>
+            <input type="text" id="body" name="body" />
+            <input type="submit" class="btn btn-default" value="Answer" name="command" />
         }
     </div>
-</div>*@
+</div>
+
 <div class="row">
     <div class="col-md-6 col-md-offset-1">
         @foreach (var answer in ViewBag.AnswerList)

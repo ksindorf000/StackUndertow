@@ -1,0 +1,47 @@
+﻿@model StackUndertow.Models.Question
+
+@{
+    ViewBag.Title = "Detail";
+}
+
+<h2>Detail</h2>
+<div class="row">
+    <div class="col-md-6">
+        <h1>@Model.Title</h1>
+        <hr />
+        <h3>@Model.Owner.UserName asked: </h3>
+        <p>@Model.Body</p>
+    </div>
+</div>
+@*<div class="row">
+    <div class="col-md-6">
+        <h3>Add an Answer:</h3>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger"})
+
+                <!--AnswerBody-->
+                <div class="form-group">
+                    @Html.Partial()
+                </div>
+            </div>
+        }
+    </div>
+</div>*@
+<div class="row">
+    <div class="col-md-6 col-md-offset-1">
+        @foreach (var answer in ViewBag.AnswerList)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>@answer.Owner.UserName answered on @answer.Created.ToString("dd MMM yyyy")</h4>
+                    <p>@answer.Body</p>
+                    <p>Score: @answer.Score</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>

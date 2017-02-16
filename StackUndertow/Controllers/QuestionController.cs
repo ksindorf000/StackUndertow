@@ -3,6 +3,7 @@ using StackUndertow.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
@@ -40,6 +41,29 @@ namespace StackUndertow.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            return View(question);
+        }
+
+        // DETAIL
+        public ActionResult Detail(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Question question = db.Questions.Find(id);
+
+            if (question == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.AnswerList = db.Answers
+                .Where(a => a.QuestionId == id)
+                .OrderBy(a => a.Score)
+                .ToList();
+
             return View(question);
         }
     }

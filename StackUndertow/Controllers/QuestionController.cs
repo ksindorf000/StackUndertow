@@ -99,7 +99,7 @@ namespace StackUndertow.Controllers
             if (ModelState.IsValid)
             {
                 question.OwnerId = User.Identity.GetUserId();
-                question.Created = question.Created;           
+                question.Created = question.Created;
                 db.Entry(question).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -107,6 +107,36 @@ namespace StackUndertow.Controllers
             return View();
         }
 
+        // DELETE: Initial View
+        [Authorize]
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
+            string userId = User.Identity.GetUserId();
+            Question question = db.Questions
+                .Where(q => q.Id == id
+                && q.OwnerId == userId)
+                .FirstOrDefault();
+            if (question == null)
+            {
+                return HttpNotFound();
+            }
+            return View(question);
+        }
+
+        // DELETE: Post
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            Question question = db.Questions.Find(id);
+            db.Questions.Remove(question);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

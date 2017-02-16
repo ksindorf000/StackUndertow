@@ -1,0 +1,60 @@
+﻿@model StackUndertow.Models.Question
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+
+<h2>Are you sure you want to delete this Question?</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-actions no-color">
+        <div class="col-lg-2">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            <a href="@Url.Action("Index", "BlogPost")">
+                <input type="button" value="Cancel" class="btn btn-default" />
+            </a>
+        </div>
+    </div>
+}
+<div class="row">
+    <div class="col-md-6">
+        <h1>@Model.Title</h1>
+        <hr />
+        <h3>@Model.Owner.UserName asked: </h3>
+        <p>@Model.Body</p>
+    </div>
+</div>
+@*<div class="row">
+        <div class="col-md-6">
+            <h3>Add an Answer:</h3>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger"})
+
+                    <!--AnswerBody-->
+                    <div class="form-group">
+                        @Html.Partial()
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+<div class="row">
+    <div class="col-md-6 col-md-offset-1">
+        @foreach (var answer in ViewBag.AnswerList)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>@answer.Owner.UserName answered on @answer.Created.ToString("dd MMM yyyy")</h4>
+                    <p>@answer.Body</p>
+                    <p>Score: @answer.Score</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>*@

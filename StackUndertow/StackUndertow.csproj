@@ -182,6 +182,10 @@
     <Compile Include="Migrations\201702160011277_AddedCreatedDateToQuestionAndAnswer.Designer.cs">
       <DependentUpon>201702160011277_AddedCreatedDateToQuestionAndAnswer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702160236054_MadeCreatedNullable.cs" />
+    <Compile Include="Migrations\201702160236054_MadeCreatedNullable.Designer.cs">
+      <DependentUpon>201702160236054_MadeCreatedNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
@@ -251,6 +255,7 @@
     <Content Include="Views\Question\Index.cshtml" />
     <Content Include="Views\Question\Create.cshtml" />
     <Content Include="Views\Question\Detail.cshtml" />
+    <Content Include="Views\Question\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -269,6 +274,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702160011277_AddedCreatedDateToQuestionAndAnswer.resx">
       <DependentUpon>201702160011277_AddedCreatedDateToQuestionAndAnswer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702160236054_MadeCreatedNullable.resx">
+      <DependentUpon>201702160236054_MadeCreatedNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

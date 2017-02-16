@@ -14,11 +14,11 @@ namespace StackUndertow.Controllers
         public ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Current User
-        [Authorize]
-        [Route("User/{userName}")]
         public ActionResult Index()
         {
             string userId = User.Identity.GetUserId();
+            ViewBag.UserName = User.Identity.GetUserName();
+
             ApplicationUser currentUser = db.Users
                 .Where(u => u.Id == userId)
                 .FirstOrDefault();
@@ -32,12 +32,48 @@ namespace StackUndertow.Controllers
                 .Where(a => a.OwnerId == userId)
                 .OrderByDescending(a => a.Score)
                 .ToList();
-
-            //http://stackoverflow.com/questions/7707290/get-sum-from-a-datacolumn-values-in-c-sharp
-            var scores = db.Answers.AsEnumerable();
-            ViewBag.Score = scores.Sum(datarow => datarow.Score);
+            
+            ViewBag.Score = CalculateScore(ViewBag.answerList);
 
             return View(currentUser);
+        }
+
+        // GET: User in Route
+        [Route("User/{userName}")]
+        public ActionResult Index(string userName)
+        {
+            ApplicationUser targetUser = db.Users
+                .Where(u => u.UserName == userName)
+                .FirstOrDefault();
+
+            string userId = targetUser.Id;
+
+            ViewBag.questionList = db.Questions
+                .Where(q => q.OwnerId == userId)
+                .OrderByDescending(q => q.Created)
+                .ToList();
+
+            ViewBag.answerList = db.Answers
+                .Where(a => a.OwnerId == userId)
+                .OrderByDescending(a => a.Score)
+                .ToList();
+                       
+            ViewBag.Score = CalculateScore(ViewBag.answerList);
+
+            return View(targetUser);
+        }
+
+        // Calculate Score
+        private int CalculateScore(List<Answer> answerList)
+        {
+            int score = 0;
+
+            foreach (var answer in answerList)
+            {
+                score += answer.Score;
+            }
+
+            return score;
         }
     }
 }

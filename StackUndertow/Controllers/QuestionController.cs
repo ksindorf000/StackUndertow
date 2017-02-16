@@ -69,33 +69,6 @@ namespace StackUndertow.Controllers
             return View(question);
         }
 
-        // ANSWER
-        // https://github.com/NicholasSaravia/StackUndertow
-        [HttpPost]
-        [Route("Detail/{id}")]
-        public ActionResult Answer(string body, int id, string command)
-        {
-            var userid = User.Identity.GetUserId();
-
-            if (command.Equals("Answer"))
-            {
-                Answer answer = new Answer()
-                {
-                    OwnerId = userid,
-                    QuestionId = id,
-                    Body = body,
-                    Created = DateTime.Now,
-                };
-
-                db.Answers.Add(answer);
-                db.SaveChanges();
-
-                return RedirectToAction("Details");
-            }
-
-            return RedirectToAction("Details");
-        }
-
         // EDIT: Initial View
         [Authorize]
         public ActionResult Edit(int? id)

@@ -12,6 +12,7 @@ namespace StackUndertow.Models
         public int Score { get; set; }
         public int QuestionId { get; set; }
         public string OwnerId { get; set; }
+        public DateTime Created { get; set; }
 
         public virtual ApplicationUser Owner { get; set; }
         public virtual Question Question { get; set; }

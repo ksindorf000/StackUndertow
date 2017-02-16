@@ -4,49 +4,86 @@
     ViewBag.Title = "Detail";
 }
 
-<h2>Detail</h2>
-<div class="row">
-    <div class="col-md-6">
-        <h1>@Model.Title</h1>
-        <hr />
-        <h3>@Model.Owner.UserName asked: </h3>
-        <p>@Model.Body</p>
-    </div>
-</div>
 
 <div class="row">
-    <div class="col-md-6">
-        <h3>Add Your Answer:</h3> <!--https://github.com/NicholasSaravia/StackUndertow-->
-        @using (Html.BeginForm("AddAnswer", "Answer", new { id = Model.Id, command = "Answer" }))
-        {
-            <input type="text" id="body" name="body" />
-            <input type="submit" class="btn btn-default" value="Answer" name="command" />
-        }
-    </div>
-</div>
+    <div class="container">
 
-<div class="row">
-    <div class="col-md-6 col-md-offset-1">
-        @foreach (var answer in ViewBag.AnswerList)
-        {
-            <div class="row">
-                @if (User.Identity.IsAuthenticated)
+        <!-----------HEADER------------->
+        <div class="col-md-12 text-center marb-35">
+            <h1 class="header-h">@Model.Title</h1>
+            <p class="header-p">
+                Asked by: <a href="/User/@Model.Owner.UserName">@Model.Owner.UserName</a>
+            </p>
+        </div>
+    </div>
+
+    <!------QUESTION----->
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="category-1 menu-user menu-restaurant" data-myorder="2">
+                <span class="clearfix">
+                    @Model.Body
+                </span>
+                <div class="menu-subtitle">
+                    <p>@Model.Created.ToString()</p>
+                </div>
+                <br />
+                <hr />
+            </div>
+        </div>
+    </div>
+
+    <!------ADD ANSWER------->
+    <div class="row">
+        <div class="col-md-10 col-md-offset-3">
+            @if (User.Identity.IsAuthenticated)
+            {
+                 <!--https://github.com/NicholasSaravia/StackUndertow-->
+                using (Html.BeginForm("AddAnswer", "Answer", new { id = Model.Id, command = "Answer" }))
                 {
-                    <div class="col-md-4">
-                        @using(Html.BeginForm("Vote", "Answer", new { id = Model.Id, ansId = answer.Id }))
-                    {
-                            <input type="submit" class="btn btn-success" value="UpVote" name="command" />
-                            <input type="submit" class="btn btn-primary" value="DownVote" name="command" />
+                    <textarea class="form-control ans-textarea" rows="5" id="body" name="body"></textarea>
+                    <br />
+                    <input type="submit" class="btn contacts-btn" value="Answer" name="command" />
+                }
+            }
+        </div>
+    </div>
+
+    <!------ALL ANSWERS------->
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h2>Answers:</h2>
+            @foreach (var answer in ViewBag.answerList)
+            {
+                <hr />
+                <div class="row">
+                    <div class="col-md-2">
+                        @using (Html.BeginForm("Vote", "Answer", new { id = Model.Id, ansId = answer.Id }))
+                        {
+                            <p>
+                                <input type="submit" class="btn btn-success" value="UpVote" name="command" />
+                            </p>
+                            <p>
+                                <input type="submit" class="btn btn-danger" value="DownVote" name="command" />
+                            </p>
                         }
                     </div>
-                }
-                <div class="col-md-8">
-                    <h4>@answer.Owner.UserName answered on @answer.Created.ToString("dd MMM yyyy")</h4>
-                    <p>@answer.Body</p>
-                    <p>Score: @answer.Score</p>
+                    <div class="col-md-6">
+                        <div class="category-1 menu-user menu-restaurant" data-myorder="2">
+                            <div class="menu-subtitle">
+                                <p>
+                                    Answer from:
+                                    <a href="/User/@answer.Owner.UserName">@answer.Owner.UserName</a>
+                                    <span class="badge">@answer.Score</span>
+                                </p>
+                                <p class="pad-left">@answer.Body</p>
+                                <p class="pad-left">@answer.Created.ToString()</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        }
-
+            }
+        </div>
     </div>
+
 </div>

@@ -1,0 +1,67 @@
+﻿.body-content {
+    background-color: rgba(221, 221, 221, 0.66);
+}
+
+.navbar-inverse {
+    background-color: #FFF;
+    border-color: rgba(0,0,0,.15);
+}
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+    color: #000;
+}
+
+.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
+    color: #000;
+} 
+
+#banner h2{
+    color: lightgray;
+    font-size: 32px;
+}
+
+.header-h {
+    color: #000;
+}
+
+.logo-name{
+    color: #FFF;
+}
+
+.menu-line {
+    left: 166px; 
+    right: 44px;
+}
+
+.menu-restaurant .menu-title {
+    color: #000;
+    font-weight: 600;
+}
+
+.radio .checkbox {
+    padding-left: 0;
+}
+
+.menu-user {
+    float: none;
+}
+
+.ans-textarea {
+    width: 50%;
+    max-width: 50%;
+    border-right: solid;
+    border-color: rgba(0,0,0,.1);
+}
+
+.menu-price {
+    position: relative;
+}
+
+.pad-left {
+    padding-left: 15px;
+    width: 100%;
+}
+
+.menu-line {
+    position: relative;
+}

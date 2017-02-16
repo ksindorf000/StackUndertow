@@ -4,16 +4,44 @@
     ViewBag.Title = "All Questions";
 }
 
-<h2>@ViewBag.Title</h2>
-<a href="@Url.Action("Create", "Question")" class="btn btn-toolbar"><span class="glyphicon glyphicon-plus"></span> Ask a Question</a>
-<div class="row">
-    <div class="col-md-6">
-        @foreach (var question in Model)
-        {
-           <h1><a href="Detail/@question.Id">@question.Title</a></h1>
-           <hr />
-           <h3><a href= "User/@question.Owner.UserName"> @question.Owner.UserName</a> asked: </h3>
-           <p>@question.Body</p>           
-        }
+<section id="menu-list" class="section-padding">
+    <div class="container">
+        <div class="row">
+            <!-----------HEADER------------->
+            <div class="col-md-12 text-center marb-35">
+                <h1 class="header-h">@ViewBag.Title</h1>
+                <p class="header-p">
+                    Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
+                    <br>nibh euismod tincidunt ut laoreet dolore magna aliquam.
+                </p>                
+            </div>
+            
+            <div id="Container">
+
+                <!-----------ADD QUESTION------------->
+                <p>
+                    <a href="@Url.Action("Create", "Question")" class="btn btn-toolbar">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        Ask a Question
+                    </a>
+                </p>
+
+                <!-----------QUESTION LIST------------->
+                @foreach (var question in Model)
+                {
+                    <div class="category-1 menu-restaurant" data-myorder="2">
+                        <span class="clearfix">
+                            <a class="menu-title" href="Detail/@question.Id" data-meal-img="assets/img/restaurant/rib.jpg">@question.Title</a>
+                            <span style="left: 166px; right: 44px;" class="menu-line"></span>
+                            <span class="menu-price">@question.Created.ToString()</span>
+                        </span>
+                        <div class="menu-subtitle">
+                            <p><a href="User/@question.Owner.UserName"> @question.Owner.UserName</a></p>
+                            <p>@question.Body</p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
-</div>
+</section>

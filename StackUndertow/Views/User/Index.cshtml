@@ -4,39 +4,84 @@
     ViewBag.Title = "Index";
 }
 
-<h1>@Model.UserName</h1>
-<h4>Score: @ViewBag.Score</h4>
-@if (Model.UserName == ViewBag.UserName)
-{
-    <h4>@Html.ActionLink("Manage Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</h4>
-}
+<div class="container">
+    <div class="row">
+        <!-----------HEADER------------->
+        <div class="col-md-12 text-center marb-35">
+            <h1 class="header-h">@Model.UserName.ToUpper()</h1>
+            <p class="header-p">
+                <strong>Score: @ViewBag.Score</strong>
+                @if (Model.UserName == ViewBag.UserName)
+            {
+                    <h4>@Html.ActionLink("Manage Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</h4>
+                }
+            </p>
+        </div>
 
-<div class="row">
-    <div class="col-md-6">
-        <h2>Questions:</h2>
-        @foreach (var question in ViewBag.questionList)
-        {
-            <h3><a href="/Detail/@question.Id">@question.Title</a></h3>
-            <p>@question.Body</p>
-            <p>@question.Created</p>
-        }
-    </div>
-</div>
+        <!------QUESTIONS----->
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h2>Questions:</h2>
+                @foreach (var question in ViewBag.questionList)
+            {
+                    <div class="row">
+                        <div class="category-1 menu-user menu-restaurant" data-myorder="2">
+                            <span class="clearfix">
+                                <a class="menu-title" href="/Detail/@question.Id" data-meal-img="assets/img/restaurant/rib.jpg">@question.Title</a>
+                                <span class="menu-price menu-user">@question.Created.ToString()</span>
+                            </span>
+                            <div class="menu-subtitle">
+                                <p>@question.Body</p>
+                            </div>
+                        </div>
+                        <br />
+                    </div>
+                }
+            </div>
+        </div>
 
-<div class="row">
-    <div class="col-md-6">
-        <h2>Answers:</h2>
-        @foreach (var answer in ViewBag.answerList)
-        {
-            <h3>
-                <a href="/Detail/@answer.QuestionId">@answer.Question.Title</a>
-                from
-                <a href="/User/@answer.Question.Owner.UserName">@answer.Owner.UserName</a>
-            </h3>
-            <p>@answer.Question.Body</p>
-            <hr />
-            <p>@answer.Body</p>
-            <p>@answer.Created</p>
-        }
+        <!------ANSWERS----->
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h2>Answers:</h2>
+                @foreach (var answer in ViewBag.answerList)
+            {
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-2">
+                            @if (User.Identity.Name != answer.Owner.UserName)
+                            {
+                                using (Html.BeginForm("Vote", "Answer", new { id = Model.Id, ansId = answer.Id }))
+                                {
+                                    <p>
+                                        <input type="submit" class="btn btn-success" value="UpVote" name="command" />
+                                    </p>
+                                    <p>
+                                        <input type="submit" class="btn btn-danger" value="DownVote" name="command" />
+                                    </p>
+                                }
+                            }
+                        </div>
+                        <div class="col-md-6">
+                            <div class="category-1 menu-user menu-restaurant" data-myorder="2">
+                                <span class="clearfix">
+                                    <a class="menu-title" href="/Detail/@answer.Question.Id" data-meal-img="assets/img/restaurant/rib.jpg">@answer.Question.Title</a>
+                                    <br />
+                                    <span class="menu-subtitle menu-user">
+                                        Asked by:
+                                        <a href="/User/@answer.Question.Owner.UserName">@answer.Question.Owner.UserName</a>
+                                        on @answer.Question.Created.ToString()
+                                    </span>
+                                </span><br />
+                                <div class="menu-subtitle">
+                                    <p class="pad-left">@answer.Body</p>
+                                    <p class="pad-left">@answer.Created.ToString()</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 </div>

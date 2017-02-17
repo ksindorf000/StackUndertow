@@ -65,7 +65,12 @@ namespace StackUndertow.Controllers
                 .Where(a => a.QuestionId == id)
                 .OrderBy(a => a.Score)
                 .ToList();
-            
+
+            if (ViewBag.answerList.Count == 0)
+            {
+                ViewBag.canEdit = true;
+            }
+
             return View(question);
         }
 

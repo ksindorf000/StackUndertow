@@ -63,7 +63,7 @@ namespace StackUndertow.Controllers
             
             ViewBag.answerList = db.Answers
                 .Where(a => a.QuestionId == id)
-                .OrderBy(a => a.Score)
+                .OrderByDescending(a => a.Score)
                 .ToList();
 
             if (ViewBag.answerList.Count == 0)

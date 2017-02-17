@@ -59,6 +59,14 @@ namespace StackUndertow.Controllers
 
             string userId = targetUser.Id;
 
+            var profilePic = db.ImgUploads
+                .Where(i => i.TypeRef == "ProfilePic"
+                && i.OwnerId == userId)
+                .FirstOrDefault();
+
+            ViewBag.PicPath = profilePic.FilePath;
+            ViewBag.PicAlt = profilePic.Caption;
+
             ViewBag.questionList = db.Questions
                 .Where(q => q.OwnerId == userId)
                 .OrderByDescending(q => q.Created)
@@ -74,7 +82,7 @@ namespace StackUndertow.Controllers
             return View(targetUser);
         }
 
-        // Calculate Score
+        // HELP: Calculate Score
         private int CalculateScore(List<Answer> answerList)
         {
             int score = 0;
@@ -87,21 +95,25 @@ namespace StackUndertow.Controllers
             return score;
         }
 
+        // POST: Image Upload
         [HttpPost]
         public ActionResult Upload(ImageUploadViewModel formData)
         {
+            //Get File and Create Path
             var uploadedFile = Request.Files[0];
             string filename = $"{DateTime.Now.Ticks}{uploadedFile.FileName}";
             var serverPath = Server.MapPath(@"~\Uploads");
             var fullPath = Path.Combine(serverPath, filename);
+
+            //Resize Image
+            //WebImage img = new WebImage(uploadedFile.InputStream);
+            //if (img.Width > 1000)
+            //    img.Resize(1000, 1000);
+
+            //Save Image
             uploadedFile.SaveAs(fullPath);
 
-            // ---------------------
-
-            WebImage img = new WebImage(uploadedFile.InputStream);
-            if (img.Width > 1000)
-                img.Resize(1000, 1000);           
-
+            //Create ImgUpload Entry
             var uploadModel = new ImgUpload
             {
                 Caption = formData.Caption,
@@ -112,6 +124,7 @@ namespace StackUndertow.Controllers
 
             db.ImgUploads.Add(uploadModel);
             db.SaveChanges();
+
             return Redirect("Index");
         }
 

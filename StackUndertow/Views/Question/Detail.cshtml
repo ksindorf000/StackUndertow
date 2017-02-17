@@ -14,12 +14,20 @@
                 @Model.Title
 
                 @if (User.Identity.Name == Model.Owner.UserName && ViewBag.canEdit == true)
-                  {
+                {
                     <a href="@Url.Action("Edit", "Question", new { id = Model.Id })" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
-                  }
+                }
             </h1>
+
+            <div class="panel">
+                <div class="panel-body">
+                    <img class="thumb detail-attachment" src="@ViewBag.attachmentPath" alt="screenshot" />
+                </div>
+            </div>
+
             <p class="header-p">
-                Asked by: <a href="/User/@Model.Owner.UserName">@Model.Owner.UserName</a>
+                Asked by:
+                <a href="/User/@Model.Owner.UserName">@Model.Owner.UserName</a>
             </p>
         </div>
     </div>
@@ -34,7 +42,9 @@
                 <div class="menu-subtitle">
                     <p>@Model.Created.ToString()</p>
                 </div>
-                <span class="xtr-bottom">&nbsp;</span>
+                <span class="xtr-bottom">
+                    &nbsp;
+                </span>
                 <hr />
             </div>
         </div>

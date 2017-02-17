@@ -3,6 +3,7 @@ using StackUndertow.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -26,6 +27,7 @@ namespace StackUndertow.Controllers
         [Authorize]
         public ActionResult Create()
         {
+            ViewBag.controlName = "Question";
             return View();
         }
 
@@ -40,9 +42,50 @@ namespace StackUndertow.Controllers
                 question.OwnerId = User.Identity.GetUserId();
                 db.Questions.Add(question);
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
             return View(question);
+        }
+
+        // POST: Image Upload
+        [HttpPost]
+        public ActionResult Upload(ImageUploadViewModel formData)
+        {
+            //Get File and Create Path
+            var uploadedFile = Request.Files[0];
+            string filename = $"{DateTime.Now.Ticks}{uploadedFile.FileName}";
+            var serverPath = Server.MapPath(@"~\Uploads");
+            var fullPath = Path.Combine(serverPath, filename);
+
+            //Resize Image
+            //WebImage img = new WebImage(uploadedFile.InputStream);
+            //if (img.Width > 1000)
+            //    img.Resize(1000, 1000);
+
+            //Save Image
+            uploadedFile.SaveAs(fullPath);
+
+            //Get Question Id
+            var userId = User.Identity.GetUserId();
+            var qId = db.Questions
+                .Where(q => q.OwnerId == userId)
+                .OrderByDescending(q => q.Created)
+                .Select(q => q.Id)
+                .FirstOrDefault();                
+
+            //Create ImgUpload Entry
+            var uploadModel = new ImgUpload
+            {
+                Caption = formData.Caption,
+                File = filename,
+                OwnerId = User.Identity.GetUserId(),
+                RefId = qId,
+                TypeRef = "QAttach",
+            };
+
+            db.ImgUploads.Add(uploadModel);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         // DETAIL
@@ -60,7 +103,17 @@ namespace StackUndertow.Controllers
             {
                 return HttpNotFound();
             }
-            
+
+            var attachment = db.ImgUploads
+                .Where(i => i.TypeRef == "QAttach"
+                && i.OwnerId == question.OwnerId)
+                .FirstOrDefault();
+
+            if(attachment.FilePath != null && attachment.FilePath != "")
+            {
+                ViewBag.attachmentPath = attachment.FilePath;
+            }
+
             ViewBag.answerList = db.Answers
                 .Where(a => a.QuestionId == id)
                 .OrderByDescending(a => a.Score)

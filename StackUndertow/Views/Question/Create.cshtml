@@ -11,39 +11,45 @@
         <div class="row">
             <div class="col-md-12">
                 <h1 class="header-h text-center">Ask a Question</h1>
-                <div class="col-md-8 col-md-offset-2">
-                    @using (Html.BeginForm())
-                    {
+
+                @using (Html.BeginForm())
+                {
+                    <div class="col-md-8 col-md-offset-2">
 
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         <div class="row">
-                            <!--TITLE-->
+                            <!---------TITLE--------->
                             @Html.LabelFor(model => model.Title)<br />
                             <div class="form-group">
                                 @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                            <div class="row">
-                                <!--BODY-->
-                                @Html.LabelFor(model => model.Body)<br />
-                                <div class="form-group">
-                                    @Html.TextAreaFor(model => model.Body, new { Class = "form-control ans-textarea", Rows = "4" })
-                                    @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <!----------BODY--------->
+                            @Html.LabelFor(model => model.Body)<br />
+                            <div class="form-group">
+                                @Html.TextAreaFor(model => model.Body, new { Class = "form-control ans-textarea", Rows = "4" })
+                                @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="btnpad">
+                                <!---------SUBMIT------------>
+                                <div class="contacts-btn-pad">
+                                    <input type="submit" value="Create" class="btn contacts-btn" />
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="btnpad">
-                                    <!--SUBMIT-->
-                                    <div class="contacts-btn-pad">
-                                        <input type="submit" value="Create" class="btn contacts-btn" />
-                                    </div>
-                                </div>
-                            </div>
-                    }
-                </div>
+                        </div>
+                }
             </div>
         </div>
     </div>
+    <!-----------SCREENSHOT------------->
+    <h3>Add a Screenshot:</h3>
+    @Html.Partial("_ImgUploader")
+
+
+</div>
 </section>

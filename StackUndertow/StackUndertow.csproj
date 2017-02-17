@@ -188,11 +188,24 @@
     <Compile Include="Migrations\201702160236054_MadeCreatedNullable.Designer.cs">
       <DependentUpon>201702160236054_MadeCreatedNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702171932426_AddedImgUpload.cs" />
+    <Compile Include="Migrations\201702171932426_AddedImgUpload.Designer.cs">
+      <DependentUpon>201702171932426_AddedImgUpload.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702171948281_AddedReferenceToImgUploads.cs" />
+    <Compile Include="Migrations\201702171948281_AddedReferenceToImgUploads.Designer.cs">
+      <DependentUpon>201702171948281_AddedReferenceToImgUploads.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702171949321_ChangedTypeToTypeRef.cs" />
+    <Compile Include="Migrations\201702171949321_ChangedTypeToTypeRef.Designer.cs">
+      <DependentUpon>201702171949321_ChangedTypeToTypeRef.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Answer.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ImgUpload.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Question.cs" />
     <Compile Include="Models\Tag.cs" />
@@ -269,9 +282,11 @@
     <Content Include="Views\Question\Delete.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Shared\_AnswerList.cshtml" />
+    <Content Include="Views\Shared\_ImgUploader.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -290,6 +305,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702160236054_MadeCreatedNullable.resx">
       <DependentUpon>201702160236054_MadeCreatedNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702171932426_AddedImgUpload.resx">
+      <DependentUpon>201702171932426_AddedImgUpload.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702171948281_AddedReferenceToImgUploads.resx">
+      <DependentUpon>201702171948281_AddedReferenceToImgUploads.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702171949321_ChangedTypeToTypeRef.resx">
+      <DependentUpon>201702171949321_ChangedTypeToTypeRef.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

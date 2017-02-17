@@ -1,17 +1,26 @@
 ﻿@model StackUndertow.Models.IndexViewModel
+
+
 @{
     ViewBag.Title = "Manage Account";
 }
 <div class="container">
     <div class="row">
+               
         <!-----------HEADER------------->
-        <div class="col-md-12 text-center marb-35">
+        <div class="col-md-6 marb-35">
             <h1 class="header-h">@ViewBag.Title</h1>
             <p class="header-p">
                 Change your account settings.
             </p>
             <p class="text-success">@ViewBag.StatusMessage</p>
         </div>
+
+        <!-----------ADD PROFILE PIC------------->
+        <h2>Add a Profile Picture:</h2>
+        @Html.Partial("_ImgUploader")
+               
+        <!-----------PASSWORD------------->
         <dl class="dl-horizontal col-md-8 col-md-offset-1">
             <dt>Password:</dt>
             <dd>
@@ -26,6 +35,8 @@
                 }
                 ]
             </dd>
+
+            <!-----------EXTERNALS------------->
             <dt>External Logins:</dt>
             <dd>
                 @Model.Logins.Count [

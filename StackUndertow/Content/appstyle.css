@@ -69,3 +69,11 @@
 .xtr-bottom {
     margin-bottom: 30px;
 }
+
+.profile-pic {
+    margin-top: 30px;
+    border-radius: 50%;
+    height: 200px;
+    width: 200px;
+    overflow: hidden;
+}

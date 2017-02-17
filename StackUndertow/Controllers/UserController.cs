@@ -27,7 +27,7 @@ namespace StackUndertow.Controllers
                 .Where(q => q.OwnerId == userId)
                 .OrderByDescending(q => q.Created)
                 .ToList();
-
+                        
             ViewBag.answerList = db.Answers
                 .Where(a => a.OwnerId == userId)
                 .OrderByDescending(a => a.Score)
@@ -52,12 +52,12 @@ namespace StackUndertow.Controllers
                 .Where(q => q.OwnerId == userId)
                 .OrderByDescending(q => q.Created)
                 .ToList();
-
+            
             ViewBag.answerList = db.Answers
                 .Where(a => a.OwnerId == userId)
                 .OrderByDescending(a => a.Score)
                 .ToList();
-                       
+            
             ViewBag.Score = CalculateScore(ViewBag.answerList);
 
             return View(targetUser);

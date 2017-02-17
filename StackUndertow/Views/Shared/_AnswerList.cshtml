@@ -1,0 +1,52 @@
+﻿
+
+
+<!------ANSWERS------->
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <h2>Answers:</h2>
+        @foreach (var answer in ViewBag.answerList)
+            {
+            <hr />
+            <div class="row">
+                <div class="col-md-2">
+                    <span class="badge">@answer.Score</span>
+                    @if (User.Identity.Name != answer.Owner.UserName)
+                    {
+                        using (Html.BeginForm("Vote", "Answer", new { id = Model.Id, ansId = answer.Id }))
+                        {
+                            <p>
+                                <input type="submit" class="btn btn-success" value="UpVote" name="command" />
+                            </p>
+                            <p>
+                                <input type="submit" class="btn btn-danger" value="DownVote" name="command" />
+                            </p>
+                        }
+                    }
+                </div>
+                <div class="col-md-6">
+                    <div class="category-1 menu-user menu-restaurant" data-myorder="2">
+                        <span class="clearfix">
+                            <a class="menu-title" href="/Detail/@answer.Question.Id" data-meal-img="assets/img/restaurant/rib.jpg">
+                            @answer.Question.Title</a>
+                            <br />
+                                <span class="menu-subtitle menu-user">
+                                    Asked by:
+                                    <a href="/User/@answer.Question.Owner.UserName">@answer.Question.Owner.UserName</a>
+                                    on @answer.Question.Created.ToString()
+                                </span>                            
+                        </span><br />
+                        <div class="menu-subtitle">
+                                <p>
+                                    Answer from:
+                                    <a href="/User/@answer.Owner.UserName">@answer.Owner.UserName</a>
+                                </p>   
+                            <p class="pad-left">@answer.Body</p>
+                            <p class="pad-left">@answer.Created.ToString()</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

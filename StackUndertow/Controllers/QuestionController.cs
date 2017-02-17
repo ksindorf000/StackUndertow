@@ -60,12 +60,12 @@ namespace StackUndertow.Controllers
             {
                 return HttpNotFound();
             }
-
-            ViewBag.AnswerList = db.Answers
+            
+            ViewBag.answerList = db.Answers
                 .Where(a => a.QuestionId == id)
                 .OrderBy(a => a.Score)
                 .ToList();
-
+            
             return View(question);
         }
 

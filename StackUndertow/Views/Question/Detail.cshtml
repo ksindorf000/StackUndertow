@@ -19,7 +19,7 @@
 
     <!------QUESTION----->
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-8 col-md-offset-3">
             <div class="category-1 menu-user menu-restaurant" data-myorder="2">
                 <span class="clearfix">
                     @Model.Body
@@ -27,7 +27,7 @@
                 <div class="menu-subtitle">
                     <p>@Model.Created.ToString()</p>
                 </div>
-                <br />
+                <span class="xtr-bottom">&nbsp;</span>
                 <hr />
             </div>
         </div>
@@ -49,41 +49,10 @@
         </div>
     </div>
 
-    <!------ALL ANSWERS------->
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <h2>Answers:</h2>
-            @foreach (var answer in ViewBag.answerList)
-            {
-                <hr />
-                <div class="row">
-                    <div class="col-md-2">
-                        @using (Html.BeginForm("Vote", "Answer", new { id = Model.Id, ansId = answer.Id }))
-                        {
-                            <p>
-                                <input type="submit" class="btn btn-success" value="UpVote" name="command" />
-                            </p>
-                            <p>
-                                <input type="submit" class="btn btn-danger" value="DownVote" name="command" />
-                            </p>
-                        }
-                    </div>
-                    <div class="col-md-6">
-                        <div class="category-1 menu-user menu-restaurant" data-myorder="2">
-                            <div class="menu-subtitle">
-                                <p>
-                                    Answer from:
-                                    <a href="/User/@answer.Owner.UserName">@answer.Owner.UserName</a>
-                                    <span class="badge">@answer.Score</span>
-                                </p>
-                                <p class="pad-left">@answer.Body</p>
-                                <p class="pad-left">@answer.Created.ToString()</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
+    @Html.Partial("_AnswerList")
+
+    <span class="xtr-bottom">
+        &nbsp;
+    </span>
 
 </div>

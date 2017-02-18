@@ -7,15 +7,15 @@
     border-color: rgba(0,0,0,.15);
 }
 
-.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
-    color: #000;
-}
+    .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+        color: #000;
+    }
 
-.navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
-    color: #000;
-} 
+    .navbar-inverse .navbar-brand:hover, .navbar-inverse .navbar-brand:focus {
+        color: #000;
+    }
 
-#banner h2{
+#banner h2 {
     color: lightgray;
     font-size: 32px;
 }
@@ -24,13 +24,14 @@
     color: #000;
 }
 
-.logo-name{
+.logo-name {
     color: #FFF;
 }
 
 .menu-line {
-    left: 166px; 
+    left: 166px;
     right: 44px;
+    position: relative;
 }
 
 .menu-restaurant .menu-title {
@@ -62,12 +63,8 @@
     width: 100%;
 }
 
-.menu-line {
-    position: relative;
-}
-
-.xtr-bottom {
-    margin-bottom: 30px;
+.double-bottom {
+    margin-bottom: 60px;
 }
 
 .profile-pic {
@@ -79,7 +76,11 @@
 }
 
 .detail-attachment {
-    max-height: 500px;
-    max-width: 500px;
+    max-height: 317px;
+    max-width: 1108px;
     overflow: scroll;
+}
+
+.profile-header {
+    background-color: rgba(0,0,0,.65);
 }

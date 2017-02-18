@@ -7,10 +7,10 @@
 <section id="contact" class="section-padding">
     <div class="container">
         <div class="row">
-            <div class="col-md-12">
-                <h1 class="header-h text-center">Edit </h1>
+            <div class="col-md-12 text-center">
+                <h1 class="header-h">Edit </h1>
                 <h3>@Model.Title</h3>
-                <span class="xtr-bottom">&nbsp;</span>
+                <span class="marb-35">&nbsp;</span>
             </div>
         </div>
         <div class="row">
@@ -28,25 +28,42 @@
                             @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                         </div>
                     </div>
-                        <div class="row">
-                            <!--BODY-->
-                            @Html.LabelFor(model => model.Body)<br />
-                            <div class="form-group">
-                                @Html.TextAreaFor(model => model.Body, new { Class = "form-control ans-textarea", Rows = "4" })
-                                @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+                    <div class="row">
+                        <!--BODY-->
+                        @Html.LabelFor(model => model.Body)<br />
+                        <div class="form-group">
+                            @Html.TextAreaFor(model => model.Body, new { Class = "form-control ans-textarea", Rows = "4" })
+                            @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="row marb-35">
+                        <div class="btnpad">
+                            <!--SUBMIT-->
+                            <div class="contacts-btn-pad">
+                                <input type="submit" value="Save" class="btn contacts-btn" />
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="btnpad">
-                                <!--SUBMIT-->
-                                <div class="contacts-btn-pad">
-                                    <input type="submit" value="Create" class="btn contacts-btn" />
-                                </div>
-                            </div>
-                        </div>
+                    </div>
                 }
+
+                <!-----------SCREENSHOT------------->
+                <div class="marb-35 text-center">
+                    <p>
+                        Add a Screenshot <br/>
+                        <span class="header-p">
+                            <strong>This will replace your current attachment.</strong>
+                        </span>
+                    </p>
+                </div>
+
+                <p class="header-p">
+                    Caption your attachment (optional):
+                </p>
+
+                @Html.Partial("_ImgUploader", new { id = Model.Id })
+
+
             </div>
         </div>
-    </div>
     </div>
 </section>

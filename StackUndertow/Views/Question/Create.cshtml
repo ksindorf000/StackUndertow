@@ -34,7 +34,10 @@
                                 @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="row marb-35">
+                            <p class="header-p">
+                                Click "Create" only once!
+                            </p>
                             <div class="btnpad">
                                 <!---------SUBMIT------------>
                                 <div class="contacts-btn-pad">
@@ -43,12 +46,18 @@
                             </div>
                         </div>
                 }
+
+                <!-----------SCREENSHOT------------->
+                <p class="marb-35 text-center">Add a Screenshot (only after you've clicked "Create" above, please).</p>
+
+                <p class="header-p">Caption your attachment (optional):</p>
+                @Html.Partial("_ImgUploader")
+
+
             </div>
         </div>
     </div>
-    <!-----------SCREENSHOT------------->
-    <h3>Add a Screenshot:</h3>
-    @Html.Partial("_ImgUploader")
+
 
 
 </div>

@@ -27,8 +27,11 @@ namespace StackUndertow.Controllers
                 && i.OwnerId == userId)
                 .FirstOrDefault();
 
-            ViewBag.PicPath = profilePic.FilePath;
-            ViewBag.PicAlt = profilePic.Caption;
+            if (profilePic != null)
+            {
+                ViewBag.PicPath = profilePic.FilePath;
+                ViewBag.PicAlt = profilePic.Caption;
+            }
 
             ApplicationUser currentUser = db.Users
                 .Where(u => u.Id == userId)
@@ -59,13 +62,18 @@ namespace StackUndertow.Controllers
 
             string userId = targetUser.Id;
 
+            ViewBag.Score = targetUser.TotalScore;
+
             var profilePic = db.ImgUploads
                 .Where(i => i.TypeRef == "ProfilePic"
                 && i.OwnerId == userId)
                 .FirstOrDefault();
 
-            ViewBag.PicPath = profilePic.FilePath;
-            ViewBag.PicAlt = profilePic.Caption;
+            if (profilePic != null)
+            {
+                ViewBag.PicPath = profilePic.FilePath;
+                ViewBag.PicAlt = profilePic.Caption;
+            }
 
             ViewBag.questionList = db.Questions
                 .Where(q => q.OwnerId == userId)
@@ -75,9 +83,7 @@ namespace StackUndertow.Controllers
             ViewBag.answerList = db.Answers
                 .Where(a => a.OwnerId == userId)
                 .OrderByDescending(a => a.Score)
-                .ToList();
-            
-            ViewBag.Score = CalculateScore(ViewBag.answerList);
+                .ToList();            
 
             return View(targetUser);
         }

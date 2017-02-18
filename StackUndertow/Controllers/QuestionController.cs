@@ -48,7 +48,7 @@ namespace StackUndertow.Controllers
 
         // POST: Image Upload
         [HttpPost]
-        public ActionResult Upload(ImageUploadViewModel formData)
+        public ActionResult Upload(ImageUploadViewModel formData, int? id)
         {
             //Get File and Create Path
             var uploadedFile = Request.Files[0];
@@ -64,13 +64,22 @@ namespace StackUndertow.Controllers
             //Save Image
             uploadedFile.SaveAs(fullPath);
 
-            //Get Question Id
             var userId = User.Identity.GetUserId();
-            var qId = db.Questions
-                .Where(q => q.OwnerId == userId)
-                .OrderByDescending(q => q.Created)
-                .Select(q => q.Id)
-                .FirstOrDefault();                
+            int qId = 0;
+
+            //Get Question Id if not provided            
+            if (id == null)
+            {
+                qId = db.Questions
+                    .Where(q => q.OwnerId == userId)
+                    .OrderByDescending(q => q.Created)
+                    .Select(q => q.Id)
+                    .FirstOrDefault();
+            }
+            else
+            {
+                qId = (int)id;
+            }
 
             //Create ImgUpload Entry
             var uploadModel = new ImgUpload
@@ -106,12 +115,15 @@ namespace StackUndertow.Controllers
 
             var attachment = db.ImgUploads
                 .Where(i => i.TypeRef == "QAttach"
-                && i.OwnerId == question.OwnerId)
+                && i.RefId == question.Id)
                 .FirstOrDefault();
 
-            if(attachment.FilePath != null && attachment.FilePath != "")
+            if (attachment != null)
             {
-                ViewBag.attachmentPath = attachment.FilePath;
+                if (attachment.FilePath != null && attachment.FilePath != "")
+                {
+                    ViewBag.attachmentPath = attachment.FilePath;
+                }
             }
 
             ViewBag.answerList = db.Answers

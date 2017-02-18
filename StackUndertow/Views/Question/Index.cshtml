@@ -32,11 +32,10 @@
                     <div class="category-1 menu-restaurant" data-myorder="2">
                         <span class="clearfix">
                             <a class="menu-title" href="Detail/@question.Id" data-meal-img="assets/img/restaurant/rib.jpg">@question.Title</a>
-                            <span style="left: 166px; right: 44px;" class="menu-line"></span>
                             <span class="menu-price">@question.Created.ToString()</span>
                         </span>
                         <div class="menu-subtitle">
-                            <p><a href="User/@question.Owner.UserName"> @question.Owner.UserName</a></p>
+                            <p><a href="u/@question.Owner.UserName"> @question.Owner.UserName</a></p>
                             <p>@question.Body</p>
                         </div>
                     </div>

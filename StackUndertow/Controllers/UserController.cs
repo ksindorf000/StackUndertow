@@ -62,7 +62,7 @@ namespace StackUndertow.Controllers
 
             string userId = targetUser.Id;
 
-            ViewBag.Score = targetUser.TotalScore;
+            ViewBag.Score = targetUser.TotalScore.ToString();
 
             var profilePic = db.ImgUploads
                 .Where(i => i.TypeRef == "ProfilePic"

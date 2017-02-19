@@ -26,11 +26,21 @@
     <div class="row double-bottom">
         <div class="col-md-8 col-md-offset-2">
             <table class="table table-hover">
+                <tr>
+                    <td>Points</td>
+                    <td>Event</td>
+                    <td>Initiated By</td>
+                    <td>Timestamp</td>
+                </tr>
                 @foreach (var logEvent in ViewBag.ScoreLog)
                 {
                     if (@logEvent.Points < 0)
                     {
-                        @ViewBag.ContextClass = ".danger";
+                        ViewBag.ContextClass = "danger";
+                    }
+                    else if (@logEvent.Points == 100)
+                    {
+                        ViewBag.ContextClass = "success";
                     }
                     <tr class="@ViewBag.ContextClass">
                         <td>@logEvent.Points</td>

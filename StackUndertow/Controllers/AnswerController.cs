@@ -47,6 +47,7 @@ namespace StackUndertow.Controllers
         public ActionResult Vote(int id, int ansId, string command)
         {
             var userid = User.Identity.GetUserId();
+            string userName = User.Identity.GetUserName();
             var answer = db.Answers.Find(ansId);
 
             if (answer == null)
@@ -59,12 +60,16 @@ namespace StackUndertow.Controllers
                 answer.Score += 1;
                 db.Entry(answer).State = EntityState.Modified;
                 db.SaveChanges();
+
+                Helpers.ScoreTracking.AnsUpVoted(answer.OwnerId, userName);
             }
             else if (command.Equals("DownVote"))
             {
                 answer.Score -= 1;
                 db.Entry(answer).State = EntityState.Modified;
                 db.SaveChanges();
+
+                Helpers.ScoreTracking.AnsDwnVoted(answer.OwnerId, userName);
             }
 
             return RedirectToAction("Detail", "Question");

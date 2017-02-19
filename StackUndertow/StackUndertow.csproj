@@ -176,6 +176,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ScoreTracking.cs" />
     <Compile Include="Migrations\201702152255038_Initial.cs" />
     <Compile Include="Migrations\201702152255038_Initial.Designer.cs">
       <DependentUpon>201702152255038_Initial.cs</DependentUpon>
@@ -204,9 +205,17 @@
     <Compile Include="Migrations\201702182029422_AddedTotalScoreToAspNetUsers.Designer.cs">
       <DependentUpon>201702182029422_AddedTotalScoreToAspNetUsers.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201702182039164_AddedScoreLog.cs" />
-    <Compile Include="Migrations\201702182039164_AddedScoreLog.Designer.cs">
-      <DependentUpon>201702182039164_AddedScoreLog.cs</DependentUpon>
+    <Compile Include="Migrations\201702190205127_AddedScoreLogsTable.cs" />
+    <Compile Include="Migrations\201702190205127_AddedScoreLogsTable.Designer.cs">
+      <DependentUpon>201702190205127_AddedScoreLogsTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702191804153_AddedDbSetForScoreLogs.cs" />
+    <Compile Include="Migrations\201702191804153_AddedDbSetForScoreLogs.Designer.cs">
+      <DependentUpon>201702191804153_AddedDbSetForScoreLogs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702191903189_ChangedEventOwnerIdToName.cs" />
+    <Compile Include="Migrations\201702191903189_ChangedEventOwnerIdToName.Designer.cs">
+      <DependentUpon>201702191903189_ChangedEventOwnerIdToName.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -292,6 +301,7 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Shared\_AnswerList.cshtml" />
     <Content Include="Views\Shared\_ImgUploader.cshtml" />
+    <Content Include="Views\User\ScoreLog.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -327,8 +337,14 @@
     <EmbeddedResource Include="Migrations\201702182029422_AddedTotalScoreToAspNetUsers.resx">
       <DependentUpon>201702182029422_AddedTotalScoreToAspNetUsers.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201702182039164_AddedScoreLog.resx">
-      <DependentUpon>201702182039164_AddedScoreLog.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201702190205127_AddedScoreLogsTable.resx">
+      <DependentUpon>201702190205127_AddedScoreLogsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702191804153_AddedDbSetForScoreLogs.resx">
+      <DependentUpon>201702191804153_AddedDbSetForScoreLogs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702191903189_ChangedEventOwnerIdToName.resx">
+      <DependentUpon>201702191903189_ChangedEventOwnerIdToName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

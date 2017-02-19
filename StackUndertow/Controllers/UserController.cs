@@ -46,8 +46,8 @@ namespace StackUndertow.Controllers
                 .Where(a => a.OwnerId == userId)
                 .OrderByDescending(a => a.Score)
                 .ToList();
-            
-            ViewBag.Score = CalculateScore(ViewBag.answerList);
+
+            ViewBag.Score = currentUser.TotalScore.ToString();
 
             return View(currentUser);
         }
@@ -87,20 +87,7 @@ namespace StackUndertow.Controllers
 
             return View(targetUser);
         }
-
-        // HELP: Calculate Score
-        private int CalculateScore(List<Answer> answerList)
-        {
-            int score = 0;
-
-            foreach (var answer in answerList)
-            {
-                score += answer.Score;
-            }
-
-            return score;
-        }
-
+        
         // POST: Image Upload
         [HttpPost]
         public ActionResult Upload(ImageUploadViewModel formData)
@@ -132,6 +119,36 @@ namespace StackUndertow.Controllers
             db.SaveChanges();
 
             return Redirect("Index");
+        }
+
+        //Show User their Score Log
+        public ActionResult ScoreLog()
+        {
+            string userId = User.Identity.GetUserId();
+            ViewBag.UserName = User.Identity.GetUserName();
+
+            var profilePic = db.ImgUploads
+                .Where(i => i.TypeRef == "ProfilePic"
+                && i.OwnerId == userId)
+                .FirstOrDefault();
+
+            if (profilePic != null)
+            {
+                ViewBag.PicPath = profilePic.FilePath;
+                ViewBag.PicAlt = profilePic.Caption;
+            }
+
+            ApplicationUser currentUser = db.Users
+                .Where(u => u.Id == userId)
+                .FirstOrDefault();           
+
+            ViewBag.Score = currentUser.TotalScore.ToString();
+
+            ViewBag.ScoreLog = db.ScoreLogs
+                .Where(l => l.TargetId == userId)
+                .ToList();
+            
+            return View(currentUser);
         }
 
     }

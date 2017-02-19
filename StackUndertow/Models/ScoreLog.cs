@@ -11,9 +11,9 @@ namespace StackUndertow.Models
         public string TargetId { get; set; }
         public int Points { get; set; }
         public string Event { get; set; }
-        public string EventOwnerId { get; set; }
+        public string EventOwnerName { get; set; }
         public DateTime Timestamp { get; set; }
 
-        public virtual ApplicationUser Target { get; set; }        
+        public virtual ApplicationUser Target { get; set; }
     }
 }

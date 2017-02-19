@@ -27,6 +27,7 @@ namespace StackUndertow.Models
         public DbSet<Category> Categories { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<ImgUpload> ImgUploads { get; set; }
+        public DbSet<ScoreLog> ScoreLogs { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -37,5 +38,6 @@ namespace StackUndertow.Models
         {
             return new ApplicationDbContext();
         }
+
     }
 }

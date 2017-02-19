@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using StackUndertow.Helpers;
 using StackUndertow.Models;
 using System;
 using System.Collections.Generic;
@@ -38,10 +39,16 @@ namespace StackUndertow.Controllers
         {
             if (ModelState.IsValid)
             {
+                var OwnerId = User.Identity.GetUserId();
+                //Create Question
                 question.Created = DateTime.Now;
-                question.OwnerId = User.Identity.GetUserId();
+                question.OwnerId = OwnerId;
                 db.Questions.Add(question);
+                
                 db.SaveChanges();
+
+                //Add to Score and Log Event
+                ScoreTracking.QCreate(OwnerId);
             }
             return View(question);
         }

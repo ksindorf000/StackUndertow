@@ -11,7 +11,7 @@
         <!-----------HEADER------------->
         <h1 class="header-h">@Model.UserName.ToUpper()</h1>
         <p class="header-p">
-            <strong>Score: @ViewBag.Score</strong>
+            <strong>SCORE: @Html.ActionLink((string)ViewBag.Score, "ScoreLog", "User")</strong>
             @if (Model.UserName == ViewBag.UserName)
             {
                 <h4>@Html.ActionLink("Manage Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</h4>

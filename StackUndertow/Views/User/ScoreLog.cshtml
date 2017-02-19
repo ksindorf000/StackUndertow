@@ -1,0 +1,47 @@
+﻿@model StackUndertow.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "ScoreLog";
+}
+
+<!-----------PROFILE PIC------------->
+<div class="row profile-header">
+    <div class="col-md-12 text-center marb-35">
+        <img class="thumb profile-pic" src="@ViewBag.PicPath" alt="@ViewBag.PicAlt" />
+
+        <!-----------HEADER------------->
+        <h1 class="header-h">@Model.UserName.ToUpper()</h1>
+        <p class="header-p">
+            <strong>Score: @ViewBag.Score</strong>
+            @if (Model.UserName == ViewBag.UserName)
+            {
+                <h4>@Html.ActionLink("Manage Account", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })</h4>
+            }
+        </p>
+    </div>
+</div>
+
+<!------SCORE LOG----->
+<div class="container">
+    <div class="row double-bottom">
+        <div class="col-md-8 col-md-offset-2">
+            <table class="table table-hover">
+                @foreach (var logEvent in ViewBag.ScoreLog)
+                {
+                    if (@logEvent.Points < 0)
+                    {
+                        @ViewBag.ContextClass = ".danger";
+                    }
+                    <tr class="@ViewBag.ContextClass">
+                        <td>@logEvent.Points</td>
+                        <td>@logEvent.Event</td>
+                        <td>@logEvent.EventOwnerName</td>
+                        <td>@logEvent.Timestamp</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+

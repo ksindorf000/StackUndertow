@@ -1,26 +1,27 @@
 ﻿<!------ANSWERS------->
 <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-10 col-md-offset-2">
         <h2>Answers:</h2>
         @foreach (var answer in ViewBag.answerList)
             {
             <hr />
-            <div class="row">
-                <div class="col-md-2">
-                    @if (User.Identity.IsAuthenticated && User.Identity.Name != answer.Owner.UserName)
+            <div class="row">                
+                    @if (User.Identity.Name != answer.Owner.UserName)
                     {
-                        using (Html.BeginForm("Vote", "Answer", new { id = Model.Id, ansId = answer.Id }))
-                        {
+                        <div class="col-md-2">
+                            @using (Html.BeginForm("Vote", "Answer", new { id = Model.Id, ansId = answer.Id }))
+                            {
                             <p>
                                 <input type="submit" class="btn btn-success" value="UpVote" name="command" />
                             </p>
                             <p>
                                 <input type="submit" class="btn btn-danger" value="DownVote" name="command" />
                             </p>
-                        }
+                            }
+                        </div>
                     }
-                </div>
-                <div class="col-md-6">
+                
+                <div class="col-md-8">
                     <div class="category-1 menu-user menu-restaurant" data-myorder="2">
                         <span class="clearfix">
                             <a class="menu-title" href="/Detail/@answer.Question.Id" data-meal-img="assets/img/restaurant/rib.jpg">
@@ -47,5 +48,11 @@
                 </div>
             </div>
         }
+        <nav aria-label="Answer List Pager">
+            <ul class="pager">
+                <li><a href="#">Previous</a></li>
+                <li><a href="#">Next</a></li>
+            </ul>
+        </nav>
     </div>
 </div>

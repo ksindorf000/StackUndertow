@@ -1,4 +1,8 @@
-﻿.body-content {
+﻿a {
+    color: #000;
+}
+
+.body-content {
     background-color: rgba(221, 221, 221, 0.66);
 }
 
@@ -26,12 +30,6 @@
 
 .logo-name {
     color: #FFF;
-}
-
-.menu-line {
-    left: 166px;
-    right: 44px;
-    position: relative;
 }
 
 .menu-restaurant .menu-title {
@@ -83,4 +81,41 @@
 
 .profile-header {
     background-color: rgba(0,0,0,.65);
+}
+
+.home-content {
+    margin-top: 15px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.padb-35 {
+    padding-bottom: 35px;
+}
+
+/**********************************************
+List styling for Home:Index
+http://stackoverflow.com/questions/13233878/make-hover-on-liitem-li-change-text-colour-too-css-trick
+*************************************************/
+
+.home-content .main a {
+    color: #000;
+    display: block;
+    text-decoration: none;
+    padding: 4px;
+}
+
+.home-content a:hover {
+    color: #FFF;
+    text-decoration: none;
+}
+
+.home-content .row {
+    list-style-type: none;
+    display: inline-block;
+    width: 100%;
+}
+
+.home-content:hover {
+    background-color: #AAA;
 }

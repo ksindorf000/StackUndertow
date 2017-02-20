@@ -3,56 +3,64 @@
     <div class="col-md-10 col-md-offset-2">
         <h2>Answers:</h2>
         @foreach (var answer in ViewBag.answerList)
-            {
+        {
             <hr />
-            <div class="row">                
-                    @if (User.Identity.Name != answer.Owner.UserName)
-                    {
-                        <div class="col-md-2">
-                            @using (Html.BeginForm("Vote", "Answer", new { id = Model.Id, ansId = answer.Id }))
-                            {
+            <div class="row home-content">
+                @if (User.Identity.Name != answer.Owner.UserName)
+                {
+                    <div class="col-md-2">
+                        @using (Html.BeginForm("Vote", "Answer", new { id = Model.Id, ansId = answer.Id }))
+                        {
                             <p>
                                 <input type="submit" class="btn btn-success" value="UpVote" name="command" />
                             </p>
                             <p>
                                 <input type="submit" class="btn btn-danger" value="DownVote" name="command" />
                             </p>
-                            }
-                        </div>
-                    }
-                
-                <div class="col-md-8">
-                    <div class="category-1 menu-user menu-restaurant" data-myorder="2">
-                        <span class="clearfix">
-                            <a class="menu-title" href="/Detail/@answer.Question.Id" data-meal-img="assets/img/restaurant/rib.jpg">
-                                @answer.Question.Title
-                            </a>
-                            <br />
-                            <span class="menu-subtitle menu-user">
-                                Asked by:
-                                <a href="/u/@answer.Question.Owner.UserName">@answer.Question.Owner.UserName</a>
-                                on @answer.Question.Created.ToString()
-                            </span>
-                        </span><br />
-                        <div class="menu-subtitle">
-                            <p>
-                                Answer from:
-                                <a href="/u/@answer.Owner.UserName">@answer.Owner.UserName</a>
-                                &nbsp;
-                                <span class="badge">@answer.Score</span>
-                            </p>
-                            <p class="pad-left">@answer.Body</p>
-                            <p class="pad-left">@answer.Created.ToString()</p>
-                        </div>
+                        }
                     </div>
+                }
+
+                <div class="col-md-8">
+
+                    @if (ViewBag.ViewName != "QDetail")
+                    {
+                        <a class="menu-title" href="/Detail/@answer.Question.Id">
+                            <h3>@answer.Question.Title</h3>
+                        </a>
+                        <br />
+                        <p>
+                            Asked by:
+                            <a href="/u/@answer.Question.Owner.UserName">@answer.Question.Owner.UserName</a>
+                            on @answer.Question.Created.ToString()
+                        </p>
+                    }
+
+                    <p>
+                        Answer from:
+                        <a href="/u/@answer.Owner.UserName">@answer.Owner.UserName</a>
+                        &nbsp;
+                        <span class="badge">@answer.Score</span>
+                    </p>
+                    <p class="pad-left">
+                        @answer.Body
+                    </p>
+                    <p class="pad-left">
+                        @answer.Created.ToString()
+                    </p>
                 </div>
             </div>
         }
-        <nav aria-label="Answer List Pager">
-            <ul class="pager">
-                <li><a href="#">Previous</a></li>
-                <li><a href="#">Next</a></li>
-            </ul>
-        </nav>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-8">
+                <ul class="pagination">
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 
 namespace StackUndertow.Controllers
 {
@@ -17,11 +18,12 @@ namespace StackUndertow.Controllers
         ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Question
-        public ActionResult Index()
-        {
+        public ViewResult Index()
+        {            
             return View(db.Questions
                 .OrderByDescending(q => q.Created)
-                .ToList());
+                .ToList()
+                .Take(5));
         }
 
         // CREATE: Initial View
@@ -119,6 +121,8 @@ namespace StackUndertow.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.ViewName = "QDetail";
 
             var attachment = db.ImgUploads
                 .Where(i => i.TypeRef == "QAttach"

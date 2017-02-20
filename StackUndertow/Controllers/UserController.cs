@@ -21,6 +21,7 @@ namespace StackUndertow.Controllers
         {
             string userId = User.Identity.GetUserId();
             ViewBag.UserName = User.Identity.GetUserName();
+            ViewBag.ViewName = "UserIndex";
 
             var profilePic = db.ImgUploads
                 .Where(i => i.TypeRef == "ProfilePic"
@@ -40,12 +41,15 @@ namespace StackUndertow.Controllers
             ViewBag.questionList = db.Questions
                 .Where(q => q.OwnerId == userId)
                 .OrderByDescending(q => q.Created)
-                .ToList();
-                        
+                .ToList()
+                .Take(3);
+
             ViewBag.answerList = db.Answers
                 .Where(a => a.OwnerId == userId)
                 .OrderByDescending(a => a.Score)
-                .ToList();
+                .ThenBy(a => a.Created)
+                .ToList()
+                .Take(3);
 
             ViewBag.Score = currentUser.TotalScore.ToString();
 
@@ -56,6 +60,8 @@ namespace StackUndertow.Controllers
         [Route("u/{userName}")]
         public ActionResult Index(string userName)
         {
+            ViewBag.ViewName = "UserIndex";
+
             ApplicationUser targetUser = db.Users
                 .Where(u => u.UserName == userName)
                 .FirstOrDefault();
@@ -78,16 +84,19 @@ namespace StackUndertow.Controllers
             ViewBag.questionList = db.Questions
                 .Where(q => q.OwnerId == userId)
                 .OrderByDescending(q => q.Created)
-                .ToList();
-            
+                .ToList()
+                .Take(3);
+
             ViewBag.answerList = db.Answers
                 .Where(a => a.OwnerId == userId)
                 .OrderByDescending(a => a.Score)
-                .ToList();            
+                .ThenBy(a => a.Created)
+                .ToList()
+                .Take(3);
 
             return View(targetUser);
         }
-        
+
         // POST: Image Upload
         [HttpPost]
         public ActionResult Upload(ImageUploadViewModel formData)
@@ -140,14 +149,14 @@ namespace StackUndertow.Controllers
 
             ApplicationUser currentUser = db.Users
                 .Where(u => u.Id == userId)
-                .FirstOrDefault();           
+                .FirstOrDefault();
 
             ViewBag.Score = currentUser.TotalScore.ToString();
 
             ViewBag.ScoreLog = db.ScoreLogs
                 .Where(l => l.TargetId == userId)
                 .ToList();
-            
+
             return View(currentUser);
         }
 

@@ -16,6 +16,8 @@
                 @if (User.Identity.Name == Model.Owner.UserName && ViewBag.canEdit == true)
                 {
                     <a href="@Url.Action("Edit", "Question", new { id = Model.Id })" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a href="@Url.Action("Delete", "Question", new { id = Model.Id })" class="btn btn-danger"><span class="glyphicon glyphicon-ban-circle"></span></a>
+
                 }
             </h1>
             @if (ViewBag.attachmentPath != null)

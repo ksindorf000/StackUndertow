@@ -5,56 +5,80 @@
 }
 
 
-<h2>Are you sure you want to delete this Question?</h2>
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <div class="form-actions no-color">
-        <div class="col-lg-2">
-            <input type="submit" value="Delete" class="btn btn-danger" />
-            <a href="@Url.Action("Index", "BlogPost")">
-                <input type="button" value="Cancel" class="btn btn-default" />
-            </a>
-        </div>
-    </div>
-}
-<div class="row">
-    <div class="col-md-6">
-        <h1>@Model.Title</h1>
-        <hr />
-        <h3>@Model.Owner.UserName asked: </h3>
-        <p>@Model.Body</p>
-    </div>
-</div>
-@*<div class="row">
-        <div class="col-md-6">
-            <h3>Add an Answer:</h3>
+<div class="row marb-35">
+    <div class="container">        
+        <div class="col-md-12 text-center marb-35">
+
+            <!-----------PAGE HEADER------------->
+            <h2>Are you sure you want to delete this Question?</h2>
             @using (Html.BeginForm())
             {
                 @Html.AntiForgeryToken()
+                <div class="form-actions no-color">
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                        <a href="@Url.Action("Index", "Question")">
+                            <input type="button" value="Cancel" class="btn btn-default" />
+                        </a>
+                        <br/>
+                </div>
+            }
+            <!-----------QUESTION HEADER------------->
 
-                <div class="form-horizontal">
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger"})
+            <h1 class="header-h">
+                @Model.Title
 
-                    <!--AnswerBody-->
-                    <div class="form-group">
-                        @Html.Partial()
+                <a href="@Url.Action("Edit", "Question", new { id = Model.Id })" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>
+
+            </h1>
+            @if (ViewBag.attachmentPath != null)
+            {
+                <div class="panel panel-attachment">
+                    <div class="panel-body">
+                        <img class="thumb detail-attachment" src="@ViewBag.attachmentPath" alt="screenshot" />
                     </div>
                 </div>
             }
+            <p class="header-p">
+                Asked by:
+                <a href="/u/@Model.Owner.UserName">@Model.Owner.UserName</a>
+            </p>
         </div>
     </div>
-<div class="row">
-    <div class="col-md-6 col-md-offset-1">
-        @foreach (var answer in ViewBag.AnswerList)
-        {
-            <div class="row">
-                <div class="col-md-12">
-                    <h4>@answer.Owner.UserName answered on @answer.Created.ToString("dd MMM yyyy")</h4>
-                    <p>@answer.Body</p>
-                    <p>Score: @answer.Score</p>
+
+    <!------QUESTION----->
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="category-1 menu-user menu-restaurant" data-myorder="2">
+                <span class="clearfix">
+                    @Model.Body
+                </span>
+                <div class="menu-subtitle">
+                    <p>@Model.Created.ToString()</p>
                 </div>
+                <span class="marb-35">
+                    &nbsp;
+                </span>
+                <hr />
             </div>
-        }
+        </div>
     </div>
-</div>*@
+
+    <!------ADD ANSWER------->
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            @if (User.Identity.IsAuthenticated && User.Identity.Name != Model.Owner.UserName)
+            {
+                 <!--https://github.com/NicholasSaravia/StackUndertow-->
+                using (Html.BeginForm("AddAnswer", "Answer", new { id = Model.Id, command = "Answer" }))
+                {
+                    <textarea class="form-control ans-textarea" rows="5" id="body" name="body"></textarea>
+                    <br />
+                    <input type="submit" class="btn contacts-btn" value="Answer" name="command" />
+                }
+            }
+        </div>
+    </div>
+
+    @Html.Partial("_AnswerList")
+
+</div>

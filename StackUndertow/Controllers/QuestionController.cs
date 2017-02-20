@@ -203,10 +203,37 @@ namespace StackUndertow.Controllers
                 .Where(q => q.Id == id
                 && q.OwnerId == userId)
                 .FirstOrDefault();
+
             if (question == null)
             {
                 return HttpNotFound();
             }
+
+            ViewBag.ViewName = "QDetail";
+
+            var attachment = db.ImgUploads
+                .Where(i => i.TypeRef == "QAttach"
+                && i.RefId == question.Id)
+                .FirstOrDefault();
+
+            if (attachment != null)
+            {
+                if (attachment.FilePath != null && attachment.FilePath != "")
+                {
+                    ViewBag.attachmentPath = attachment.FilePath;
+                }
+            }
+
+            ViewBag.answerList = db.Answers
+                .Where(a => a.QuestionId == id)
+                .OrderByDescending(a => a.Score)
+                .ToList();
+
+            if (ViewBag.answerList.Count == 0)
+            {
+                ViewBag.canEdit = true;
+            }
+
             return View(question);
         }
 
@@ -218,6 +245,7 @@ namespace StackUndertow.Controllers
             Question question = db.Questions.Find(id);
             db.Questions.Remove(question);
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
     }
